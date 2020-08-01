@@ -1,0 +1,184 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
+import static java.awt.Font.BOLD;
+
+public class Dxc {
+    public static void main(String[] args){
+        ArrayList zh = new ArrayList<Object>();
+        ArrayList mi = new ArrayList<Object>();
+        LoadFrame lf = new LoadFrame();
+            Frame f = new Frame();
+            f.setTitle("地下城登录界面");
+            f.setVisible(true);
+            f.setResizable(false);
+            f.setBounds(460,180,390,390);
+            f.addWindowListener(new WindowAdapter(){
+                public void windowClosing(WindowEvent e){
+                    System.exit(0);
+                }
+            });
+            f.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\java\\test\\src\\tupian\\捕获.PNG"));
+
+            Label l1 = new Label("帐号");
+            l1.setLocation(30,60);
+            l1.setSize(65,30);
+            l1.setFont(new Font("微软雅黑",Font.BOLD,13));
+            f.add(l1);
+
+            TextField t = new TextField();
+            t.setSize(220,25);
+            t.setLocation(130,60);
+            f.add(t);
+
+            Label l2 = new Label("密码");
+            l2.setLocation(30,120);
+            l2.setSize(65,30);
+            l2.setFont(new Font("微软雅黑",Font.BOLD,13));
+            f.add(l2);
+
+            TextField t2 = new TextField();
+            t2.setSize(220,25);
+            t2.setLocation(130,120);
+            f.add(t2);
+
+            Button b1 = new Button("登录");
+            b1.setLocation(220,180);
+            b1.setSize(60,35);
+            f.add(b1);
+            b1.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+
+
+
+                    int i=0;
+                    for( i = 0;i<zh.size();i++) {
+                        if(t.getText().equals(zh.get(i))){
+                            if(t2.getText().equals(mi.get(i))) {
+                                JOptionPane.showMessageDialog(f,"登录成功");
+                                lf.loadf();
+                            }else {
+                                JOptionPane.showMessageDialog(f,"密码错误");
+                            }}
+                    }
+                    if(i==0||i == zh.size()+1) {
+                        JOptionPane.showMessageDialog(f,"查无此号");
+                    }
+
+
+
+                }
+            });
+
+        Button b2 = new Button("注册");
+        b2.setLocation(110,180);
+        b2.setSize(60,35);
+        f.add(b2);
+        b2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame f1=new JFrame();
+                JPanel jp = new JPanel();
+                jp.setLayout(null);
+                f1.add(jp);
+
+                f1.setVisible(true);
+                f1.setLocation(450,150);
+                f1.setSize(500,500);
+                f1.setTitle("新用户注册界面");
+                f1.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\java\\test\\src\\tupian\\注册.jpg"));
+
+
+                Label l1 = new Label("帐号");
+                l1.setLocation(100,50);
+                l1.setSize(65,30);
+                l1.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l1);
+
+                TextField t = new TextField();
+                t.setSize(220,25);
+                t.setLocation(175,50);
+                jp.add(t);
+
+                Label l2 = new Label("密码");
+                l2.setLocation(100,90);
+                l2.setSize(65,30);
+                l2.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l2);
+
+                TextField t2 = new TextField();
+                t2.setSize(220,25);
+                t2.setLocation(175,90);
+                jp.add(t2);
+
+                Label l3 = new Label("真实姓名");
+                l3.setLocation(100,130);
+                l3.setSize(68,30);
+                l3.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l3);
+
+                TextField t3 = new TextField();
+                t3.setSize(220,25);
+                t3.setLocation(175,130);
+                jp.add(t3);
+
+
+                Label l4 = new Label("身份证号");
+                l4.setLocation(100,170);
+                l4.setSize(68,30);
+                l4.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l4);
+
+                TextField t4 = new TextField();
+                t4.setSize(220,25);
+                t4.setLocation(175,170);
+                jp.add(t4);
+
+                Label l5 = new Label("性别");
+                l5.setLocation(100,210);
+                l5.setSize(65,30);
+                l5.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l5);
+
+                TextField t5 = new TextField();
+                t5.setSize(50,25);
+                t5.setLocation(175,210);
+                jp.add(t5);
+
+                Label l6 = new Label("名族");
+                l6.setLocation(235,210);
+                l6.setSize(65,30);
+                l6.setFont(new Font("微软雅黑",Font.BOLD,13));
+                jp.add(l6);
+
+                TextField t6 = new TextField();
+                t6.setSize(50,25);
+                t6.setLocation(310,210);
+                jp.add(t6);
+
+
+                Button b1 = new Button("注册");
+                b1.setLocation(250,300);
+                b1.setSize(50,25);
+                jp.add(b1);
+                b1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+
+                        zh.add(t.getText());
+                        mi.add(t2.getText());
+
+                        JOptionPane.showMessageDialog(jp, "注册成功");
+                    }
+                });
+            }
+        });
+
+        }
+}
