@@ -1,0 +1,176 @@
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.Color;
+
+
+public class LoadFrame extends Frame {
+    int x=0;
+    int y=0;
+    int i=-1;
+    int d=0;
+    int p=1;
+    int hp = 100;
+    public void loadf(){
+
+
+
+
+        this.setTitle("地下城");
+        this.setVisible(true);
+        this.setResizable(false);
+        this.setBounds(260,90,900,600);
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\java\\test\\src\\tupian\\捕获.PNG"));
+
+
+        new MyThread().start();
+
+
+        this.addKeyListener(new  KeyAdapter() {
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_D:
+                        y=0;
+                        x+=10;
+                        if(i<2) {
+                            i++;
+                        }else {
+                            i=0;
+                        }
+                        break;
+                    case KeyEvent.VK_A:
+                        y=0;
+                        x-=10;
+                        i=0;
+                        break;
+                    case KeyEvent.VK_S:
+                        d=1;
+                        y=0;
+                        if(i<12&&i>1) {
+                            i++;
+                        }else {
+                            i=3;
+                        }
+                        break;
+                    case KeyEvent.VK_C:
+                        d=2;
+                        y=60;
+                        if(i<18&&i>11) {
+                            i++;
+                        }else {
+                            i=13;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+    }
+
+
+
+
+
+    int mob=0;
+
+
+    @Override
+    public void paint(Graphics g){
+
+        g.drawImage(GameUitl.getImage("tupian/bg2.png"),0,520,null);
+        g.drawImage(GameUitl.getImage("tupian/背景.jpg"),0,0,null);
+        g.drawImage(GameUitl.getImage("tupian/renwu"+i+".tiff"),x,440-y,null);
+
+        g.drawImage(GameUitl.getImage("picture/"+mob+".png"),680,420,null);
+        mobHp(g);
+
+
+        if(d==1&&x>500&&x<700){
+            if(hp<0){
+                hp=0;
+            }else{
+                hp-=3;
+            }
+            d=0;
+        }
+
+        if(d==2&&x>400&&x<700){
+            if(hp<=0){
+                hp=0;
+            }else{
+                hp-=5;
+            }
+            d=0;
+        }
+
+        if (hp<=0&&p==1){
+            mob=40;
+            p++;
+        }
+
+        if(hp>0){
+            if(mob==39){
+                mob=0;
+            }else{
+                mob++;
+            }
+
+        }else{
+            if(mob<82){
+                mob++;
+            }
+        }
+
+    }
+
+
+
+
+
+    private void mobHp(Graphics g){
+        Color c= g.getColor();
+        g.setColor(Color.darkGray);
+        g.drawRect(680,410,89*hp/100,5);
+        g.setColor(Color.green);
+        g.fillRect(680,410,89*hp/100,5);
+        g.setColor(c);
+    }
+
+
+
+    class MyThread extends Thread{
+        public void run() {
+            for (;;) {
+                repaint();
+                try {
+                    Thread.sleep(40);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+    }
+
+
+    Image backImg = null;
+
+    @Override
+    public void update(Graphics g) {
+        if (backImg == null) {
+            backImg = createImage(1200, 650);
+        }
+        Graphics backg = backImg.getGraphics();
+        Color c = backg.getColor();
+        backg.setColor(Color.BLACK);
+        backg.fillRect(0, 0, 1200, 650);
+        backg.setColor(c);
+        paint(backg);
+        g.drawImage(backImg, 0, 0, null);
+    }
+
+}
