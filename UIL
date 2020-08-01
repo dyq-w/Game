@@ -1,0 +1,23 @@
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+
+public class GameUitl {
+    public static Image getImage(String imgPath){
+
+        URL u=GameUitl.class.getClassLoader().getResource(imgPath);
+        // 图片对象
+        BufferedImage bimg =null;
+
+        try{
+
+            bimg = ImageIO.read(u);
+        } catch (Exception g) {
+            g.printStackTrace();
+        }
+
+        return bimg;
+    }
+
+}
